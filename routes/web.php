@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Member\MemberController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::controller(AdminController::class)->group(function () {
         Route::get('/dashboard', 'adminDashboard')->name('dashboard');
+    });
+
+    Route::controller(MemberController::class)->group(function () {
+        Route::get('/member', 'index')->name('member');
+        Route::post('/mamber/store', 'store')->name('member.store');
+
     });
 });
 

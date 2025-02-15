@@ -13,14 +13,17 @@
     <script src="{{asset('backend')}}/assets/plugins/sparkline-charts/jquery.sparkline.min.js"></script>
     <script src="{{asset('backend')}}/assets/plugins/jquery-knob/excanvas.js"></script>
     <script src="{{asset('backend')}}/assets/plugins/jquery-knob/jquery.knob.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <script>
         $(function() {
             $(".knob").knob();
         });
     </script>
-    <script src="{{asset('backend')}}/assets/js/index.js"></script>
+
     <!--app JS-->
     <script src="{{asset('backend')}}/assets/js/app.js"></script>
+    <script src="{{asset('backend')}}/assets/js/index.js"></script>
 </body>
 
 </html>
