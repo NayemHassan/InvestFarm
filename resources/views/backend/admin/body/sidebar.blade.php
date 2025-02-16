@@ -25,19 +25,28 @@
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
                 </div>
-                <div class="menu-title">Monthly Collection</div>
+                <div class="menu-title">Member</div>
             </a>
             <ul>
                 <li>
-                    <a href="{{route('member')}}">
-                        <i class="bx bx-right-arrow-alt"></i>Member
+                    <a href="{{route('view.member')}}">
+                        <i class="bx bx-right-arrow-alt"></i>All Member 
                     </a>
                 </li>
-                <li> <a href="app-chat-box.html"><i class="bx bx-right-arrow-alt"></i>Chat Box</a>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Savings Amount</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="{{route('savings')}}">
+                        <i class="bx bx-right-arrow-alt"></i>All Savings 
+                    </a>
                 </li>
-                <li> <a href="app-file-manager.html"><i class="bx bx-right-arrow-alt"></i>File Manager</a>
-                </li>
-
             </ul>
         </li>
         <li class="menu-label">Next Components</li>

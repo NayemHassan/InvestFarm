@@ -14,7 +14,7 @@
     </div>
     <div class="ms-auto">
         <div class="btn-group">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">View Members </button>
+            <a type="button" href="{{route('view.member')}}" class="btn btn-primary" >View Members </a>
         </div>
     </div>
 </div>
@@ -26,40 +26,56 @@
                     <h5 class="mb-0">Add Members</h5>
                 </div>
                 <div class="row row-cols-auto g-3">
-                    <div class="col">
-                        @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                        @endif
+                    <div class="col-12">
+                    <form class="row g-3" action="{{ route('member.store') }}" method="post" enctype="multipart/form-data">
+    @csrf
+    <div class="row">
+        <!-- Name -->
+        <div class="col-md-6">
+            <label for="inputFirstName" class="form-label"> Name</label>
+            <input type="text" class="form-control" name="name" id="inputFirstName" value="{{ old('name') }}">
+            @error('name')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
 
-                        <form class="row g-3" action="{{ route('member.store') }}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="inputFirstName" class="form-label"> Name</label>
-                                    <input type="text" class="form-control" name="name" id="inputFirstName" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="inputLastName" class="form-label">Phone</label>
-                                    <input type="text" class="form-control" name="phone" id="inputLastName" required>
-                                </div>
-                                <div class="col-md-12">
-                                    <label for="inputEmail" class="form-label">Photo</label>
-                                    <div class="input-group mb-3">
-                                        <input type="file" class="form-control" name="photo" id="inputGroupFile02">
-                                        <label class="input-group-text" for="inputGroupFile02">Upload</label>
-                                    </div>
-                                </div>
-                                <div class="col-12 pb-2">
-                                    <label for="inputAddress" class="form-label">Description</label>
-                                    <textarea class="form-control" id="inputAddress" name="description" placeholder="Description..." rows="3"></textarea>
-                                </div>
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-primary">Save Members</button>
-                                </div>
-                            </div>
-                        </form>
+        <!-- Phone -->
+        <div class="col-md-6">
+            <label for="inputPhone" class="form-label">Phone</label>
+            <input type="text" class="form-control" name="phone" id="inputPhone" value="{{ old('phone') }}">
+            @error('phone')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Photo -->
+        <div class="col-md-12">
+            <label for="inputPhoto" class="form-label">Photo</label>
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" name="photo" id="inputGroupFile02">
+                <label class="input-group-text" for="inputGroupFile02">Upload</label>
+            </div>
+            @error('photo')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Description -->
+        <div class="col-12 pb-2">
+            <label for="inputDescription" class="form-label">Description</label>
+            <textarea class="form-control" id="inputDescription" name="description" placeholder="Description..." rows="3">{{ old('description') }}</textarea>
+            @error('description')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Submit -->
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Save Members</button>
+        </div>
+    </div>
+</form>
+
 
                     </div>
                 </div>
