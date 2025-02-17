@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SavingController;
+use App\Http\Controllers\FineController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -35,10 +36,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::controller(SavingController::class)->group(function () {
         Route::get('/savings', 'index')->name('savings');
         Route::post('/savings/store', 'store')->name('savings.store');
-        Route::get('/savings/view', 'view')->name('view.savings');
+        Route::get('/savings/view', 'view')->name('savings.view');
         Route::get('/savings/edit/{id}',  'edit')->name('savings.edit');
         Route::put('/savings/update/{id}',  'update')->name('savings.update');
         Route::delete('/savings/delete/{id}', 'delete')->name('savings.delete');
+    });
+    Route::controller(FineController::class)->group(function () {
+        Route::get('/fines', 'index')->name('fines');
+        Route::post('/fines/store', 'store')->name('fines.store');
+        Route::get('/fines/view', 'view')->name('fines.view');
+        Route::get('/fines/edit/{id}',  'edit')->name('fines.edit');
+        Route::put('/fines/update/{id}',  'update')->name('fines.update');
+        Route::delete('/fines/delete/{id}', 'delete')->name('fines.delete');
     });
 });
 

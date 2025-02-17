@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class ReturnAmount extends Model
 {
     //
+    protected $guarded = [];
 }

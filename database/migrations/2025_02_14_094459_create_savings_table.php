@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('member_id')->constrained('members')->onDelete('cascade');
             $table->decimal('amount', 15, 2);
-            $table->date('month');
+            $table->string('month');
             $table->text('note')->nullable();
             $table->timestamps();
         });

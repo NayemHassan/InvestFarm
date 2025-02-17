@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('member_id')->constrained('members')->onDelete('cascade');
             $table->decimal('amount', 15, 2);
+            $table->string('date')->nullable();
             $table->text('reason')->nullable();
             $table->timestamps();
         });

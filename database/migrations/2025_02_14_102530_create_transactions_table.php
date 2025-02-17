@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('type');
+            $table->decimal('amount', 10, 2);
+            $table->text('details')->nullable();
+            $table->date('date');
             $table->timestamps();
         });
     }

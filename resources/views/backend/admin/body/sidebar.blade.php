@@ -43,8 +43,22 @@
             </a>
             <ul>
                 <li>
-                    <a href="{{route('savings')}}">
+                    <a href="{{route('savings.view')}}">
                         <i class="bx bx-right-arrow-alt"></i>All Savings 
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Fines Amount</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="{{route('fines.view')}}">
+                        <i class="bx bx-right-arrow-alt"></i>All Fines List
                     </a>
                 </li>
             </ul>

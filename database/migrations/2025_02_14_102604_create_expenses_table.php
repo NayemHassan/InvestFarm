@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
+            $table->decimal('amount', 10, 2);
+            $table->text('details')->nullable();
+            $table->date('date');
             $table->timestamps();
         });
     }
