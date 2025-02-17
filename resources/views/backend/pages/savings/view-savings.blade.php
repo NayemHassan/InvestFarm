@@ -36,7 +36,8 @@
                                     <tr>
                                         <td>{{ $key+1}}</td>
                                         <td>{{ $Saving->member->name ?? 'N/A'}}</td>
-                                        <td>{{ $Saving->month ?? 'N/A'}}</td>
+                                        <td>{{ \Carbon\Carbon::parse($Saving->month)->format('j F Y') ?? 'N/A' }}</td>
+
                                         <td>{{ $Saving->amount ?? 'N/A' }}</td>
                                         <td>{{ $Saving->note  ?? 'N/A'}}</td>
                                         <td>

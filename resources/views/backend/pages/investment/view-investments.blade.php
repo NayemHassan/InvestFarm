@@ -2,19 +2,19 @@
 @section('content')
 
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-    <div class="breadcrumb-title pe-3">Fines</div>
+    <div class="breadcrumb-title pe-3">Investment</div>
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
                 <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">View Fines</li>
+                <li class="breadcrumb-item active" aria-current="page">View Investment</li>
             </ol>
         </nav>
     </div>
     <div class="ms-auto">
         <div class="btn-group">
-            <a type="button" href="{{route('fines')}}" class="btn btn-primary" >Add Fines </a>
+            <a type="button" href="{{route('investment')}}" class="btn btn-primary" >Add Investment </a>
         </div>
     </div>
 </div>
@@ -23,43 +23,48 @@
 						<div class="table-responsive">
 							<table id="example2" class="table table-striped table-bordered">
 								<thead>
-									<tr><th>SI</th>
-										<th>Member Name</th>
-										<th>Date</th>
+									<tr>
+										<th>Invest Type</th>
 										<th>Amount</th>
-										<th>Reason</th>
+										<th>Date</th>
+										<th>Image</th>
+										<th>Details</th>
                                         <th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
-                                 @foreach($fines as $key => $fine)
+                                 @foreach($investments as $investment)
                                     <tr>
-                                        <td>{{ $key+1}}</td>
-                                        <td>{{ $fine->member->name ?? 'N/A'}}</td>
-                                        <td>{{ \Carbon\Carbon::parse($fine->date)->format('j F Y') ?? 'N/A' }}</td>
+                                        <td>{{ $investment->type }}</td>
+                                        <td>{{ $investment->amount }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($investment->date)->format('j F Y') ?? 'N/A' }}</td>
 
-                                        <td>{{ $fine->amount ?? 'N/A' }}</td>
-                                        <td>{{ $fine->reason  ?? 'N/A'}}</td>
+                                        <td> @if($investment->image)
+                                            <img src="{{ asset($investment->image) }}" alt="image" width="50">
+                                        @else
+                                            No Image
+                                        @endif</td>
+                                        <td>{{ $investment->details }}</td>
                                         <td>
-                                            <a class="btn btn-info" href="{{ route('fines.edit', $fine->id) }}">Edit</a>
-                                            <form action="{{ route('fines.delete', $fine->id) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete(this);">
+                                            <a class="btn btn-info" href="{{ route('investment.edit', $investment->id) }}">Edit</a>
+                                            <form action="{{ route('investment.delete', $investment->id) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete(this);">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">Delete</button>
                                         </form>
                                     </td>
-
-                               
                                     </tr>
                                     @endforeach
 							
 								</tbody>
 								<tfoot>
 									<tr>
-                                        <th>Name</th>
-										<th>Phone</th>
-										<th>Photo</th>
+                                      <th>Invest Type</th>
+										<th>Amount</th>
+										<th>Date</th>
+										<th>Image</th>
 										<th>Details</th>
+                                        <th>Action</th>
 									</tr>
 								</tfoot>
 							</table>

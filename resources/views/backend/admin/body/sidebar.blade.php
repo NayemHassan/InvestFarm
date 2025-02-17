@@ -63,6 +63,48 @@
                 </li>
             </ul>
         </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Investment</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="{{route('investment.view')}}">
+                        <i class="bx bx-right-arrow-alt"></i>All Investment List
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Sales</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="{{route('sales.view')}}">
+                        <i class="bx bx-right-arrow-alt"></i>All Sales List
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Collection Amount</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="{{route('return.amounts.view')}}">
+                        <i class="bx bx-right-arrow-alt"></i>Collection Amount List
+                    </a>
+                </li>
+            </ul>
+        </li>
         <li class="menu-label">Next Components</li>
         <!-- <li>
                     <a href="widgets.html">
