@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Member;
-use App\Models\Savings;
 use Carbon\Carbon;
+use App\Models\Savings;
+use App\Models\Transactions;
+use App\Models\Balance;
 
 class SavingController extends Controller
 {
@@ -31,7 +33,24 @@ class SavingController extends Controller
     $savings->amount = $request->amount;
     $savings->note = $request->note;
     $savings->save();
+    $transaction = Transactions::create([
+        'type' => 'Savings',
+        'amount' => $request->amount,
+        'savings_id' =>$savings->id,
+        'date' => Carbon::now(),
+        'details' => 'Savings entry',
+    ]);
+    $balance = Balance::first(); // প্রথম ব্যালান্স রেকর্ড খুঁজবে
 
+    if ($balance) {
+        $balance->total_balance += $request->amount;;
+        $balance->save();
+    } else {
+        // যদি Balance টেবিলে কোনো এন্ট্রি না থাকে, তাহলে নতুন এন্ট্রি তৈরি করবে
+        Balance::create([
+            'total_balance' => $savings->amount,
+        ]);
+    }
     // Set notification message
     $notification = array(
         'message' => 'Savings amount saved successfully.',
@@ -55,12 +74,12 @@ class SavingController extends Controller
         public function update(Request $request, $id)
 {
     $request->validate([
-        'amount' => 'required|numeric|min:1',
+      
         'note' => 'nullable|string|max:500',
     ]);
 
     $savings = Savings::findOrFail($id);
-    $savings->amount = $request->amount;
+    // $savings->amount = $request->amount;
     $savings->note = $request->note;
     $savings->save();
     $notification = array(

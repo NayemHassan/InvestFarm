@@ -52,7 +52,7 @@
 
                             <div class="col-md-6">
                                 <label for="inputLastName" class="form-label">Amount</label>
-                                <input type="number" class="form-control" name="amount" value="{{ old('amount', $savings->amount) }}">
+                                <input type="number" class="form-control" name="amount" value="{{ old('amount', $savings->amount) }}" disabled>
                                 @error('amount')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror

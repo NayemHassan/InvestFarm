@@ -53,7 +53,7 @@
                                 <!-- Amount -->
                                 <div class="col-md-6">
                                     <label for="inputAmount" class="form-label">Amount</label>
-                                    <input type="number" class="form-control" name="amount" id="inputAmount" value="{{ old('amount', $investment->amount) }}">
+                                    <input type="number" class="form-control" name="amount" id="inputAmount" value="{{ old('amount', $investment->amount) }}" readonly>
                                     @error('amount')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

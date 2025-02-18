@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Investments;
+use App\Models\Transactions;
+use App\Models\Balance;
 class InvestmentsController extends Controller
 {
     public function index(){
@@ -35,14 +37,31 @@ class InvestmentsController extends Controller
         $formattedDate = Carbon::parse($request->date)->format('Y-m-d');
     
         // ✅ Insert data into the database
-        Investments::create([
+       $investments =  Investments::create([
             'type' => $request->type, // Type is a string
             'amount' => $request->amount, // Amount is now set correctly as a numeric value
             'date' => $formattedDate,
             'image' => $photoPath,
             'details' => $request->details,
         ]);
+        $transaction = Transactions::create([
+            'type' => 'Investments',
+            'amount' => $request->amount,
+            'investments_id' =>  $investments->id,
+            'date' => Carbon::now(),
+            'details' => 'Investments Amount Provided',
+        ]);
+        $balance = Balance::first(); // প্রথম ব্যালান্স রেকর্ড খুঁজবে
     
+        if ($balance) {
+            $balance->total_balance -= $request->amount;
+            $balance->save();
+        } else {
+            // যদি Balance টেবিলে কোনো এন্ট্রি না থাকে, তাহলে নতুন এন্ট্রি তৈরি করবে
+            Balance::create([
+                'total_balance' => $request->amount,
+            ]);
+        }
         // Success notification
         $notification = array(
             'message' => 'Investment Added Successfully',
@@ -67,7 +86,7 @@ class InvestmentsController extends Controller
         $request->validate([
             'type' => 'required|string',
             'date' => 'required',
-            'amount' => 'required|numeric',
+          
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
             'details' => 'nullable|string',
         ]);
@@ -95,7 +114,7 @@ class InvestmentsController extends Controller
     
         // Update the investment data
         $investment->type = $request->type;
-        $investment->amount = $request->amount;
+        // $investment->amount = $request->amount;
         $investment->date = $formattedDate;
         $investment->image = $photoPath;
         $investment->details = $request->details;

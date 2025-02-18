@@ -22,7 +22,10 @@ class SalesController extends Controller
         'details' => 'nullable|string|max:500',
     ]);
     $formattedMonth = Carbon::parse($request->date)->format('Y-m-d');
-
+    $existingSale = Sales::where('investment_id', $request->investment_id)->first();
+    if ($existingSale) {
+        return redirect()->back()->withErrors(['investment_id' => 'This investment has already been sold!']);
+    }
     // Save the savings entry
     $sales = new Sales();
     $sales->investment_id = $request->investment_id;
@@ -80,6 +83,6 @@ public function delete($id)
         'message' => 'Sales record deleted successfully.',
         'alert-type' => 'info'
     );
-    return redirect()->route('savings.view')->with($notification);
+    return redirect()->route('sales.view')->with($notification);
 }
 }

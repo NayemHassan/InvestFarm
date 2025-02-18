@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::controller(AdminController::class)->group(function () {
         Route::get('/dashboard', 'adminDashboard')->name('dashboard');
+        Route::get('/savings/filter', 'savingsFilter')->name('savings.filter');
     });
 
     Route::controller(MemberController::class)->group(function () {

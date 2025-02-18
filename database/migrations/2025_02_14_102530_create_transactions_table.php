@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('type');
             $table->decimal('amount', 10, 2);
+            $table->integer('savings_id')->nullable();
+            $table->integer('investments_id')->nullable();
+            $table->integer('sale_id')->nullable();
             $table->text('details')->nullable();
             $table->date('date');
             $table->timestamps();

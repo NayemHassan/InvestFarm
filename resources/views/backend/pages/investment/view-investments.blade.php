@@ -47,11 +47,11 @@
                                         <td>{{ $investment->details }}</td>
                                         <td>
                                             <a class="btn btn-info" href="{{ route('investment.edit', $investment->id) }}">Edit</a>
-                                            <form action="{{ route('investment.delete', $investment->id) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete(this);">
+                                            <!-- <form action="{{ route('investment.delete', $investment->id) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete(this);">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
+                                        </form> -->
                                     </td>
                                     </tr>
                                     @endforeach
