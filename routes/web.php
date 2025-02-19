@@ -10,6 +10,7 @@ use App\Http\Controllers\FineController;
 use App\Http\Controllers\InvestmentsController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ReturnAmountsController;
+use App\Http\Controllers\AsignSaleAmountController;
 
 
 Route::get('/', function () {
@@ -78,6 +79,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/return/amounts/edit/{id}',  'edit')->name('return.amounts.edit');
         Route::put('/return/amounts/update/{id}',  'update')->name('return.amounts.update');
         Route::delete('/return/amounts/delete/{id}', 'delete')->name('return.amounts.delete');
+    });
+    Route::controller(AsignSaleAmountController::class)->group(function () {
+        Route::get('/Assign/Sale/Amount', 'index')->name('assign.amount');
+        Route::post('/Assign/Sale/Amount/store', 'store')->name('assign.amount.store');
+        Route::get('/Assign/Sale/Amount/view', 'view')->name('assign.amount.view');
+        Route::get('/Assign/Sale/Amount/edit/{id}',  'edit')->name('return.amounts.edit');
+        Route::put('/Assign/Sale/Amount/{id}',  'update')->name('assign.amount.update');
+        Route::delete('/Assign/Sale/Amount//delete/{id}', 'delete')->name('assign.amount.delete');
     });
 });
 

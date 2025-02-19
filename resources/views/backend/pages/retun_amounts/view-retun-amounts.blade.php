@@ -30,7 +30,7 @@
                                         <th>Total Investment</th>
                                         <th>Total Sales</th>
 										<th>Collected Amount</th>                      
-										<th>Due Profit Amount</th>                      
+										<th><span class="text-danger">Due</span>/ <span class="text-success">Profit Amount</span></th>                      
 									</tr>
 								</thead>
 								<tbody>
@@ -43,9 +43,9 @@
                                         <td>{{ $returnAmount->sales->amount ?? 'N/A'}}</td>
                                         <td>{{ $returnAmount->amount ?? 'N/A' }}</td>
                                         <td>@if(($returnAmount->sales->investments->amount - $returnAmount->amount) > 0 ) 
-                                         {{$returnAmount->sales->investments->amount - $returnAmount->amount ?? 0 }} Due
+                                         {{$returnAmount->sales->investments->amount - $returnAmount->amount ?? 0 }} <span class="text-danger">Due</span>
                                             @else
-                                          {{ -($returnAmount->sales->investments->amount - $returnAmount->amount) ?? 0}} Profit
+                                          {{ -($returnAmount->sales->investments->amount - $returnAmount->amount) ?? 0}} <span class="text-success ">Profit</span>
                                             @endif
                                         </td>
                                    </tr>
@@ -60,7 +60,7 @@
                                         <th>Total Investment</th>
                                         <th>Total Sales</th>
 										<th>Collected Amount</th>                      
-										<th>Due Profit Amount</th>                     
+										<th><span class="text-danger">Due</span>/ <span class="text-success">Profit Amount</span></th>                 
 									</tr>
 								</tfoot>
 							</table>

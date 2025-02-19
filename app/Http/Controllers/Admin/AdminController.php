@@ -5,12 +5,23 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Savings;
+use App\Models\Balance;
+use App\Models\Sales;
+use App\Models\Fines;
+use App\Models\Investments;
 use Carbon\Carbon;
 class AdminController extends Controller
 {
     public function adminDashboard(){
-        
-        return view('backend.admin.index');	
+        $inhandBalamce = Balance::latest()->first();
+        $totalSaving = Savings::sum('amount');
+        $totalInvest = Investments::sum('amount');
+        $totalSale = Sales::sum('amount');
+        $willProfit =   $totalSale - $totalInvest;
+        $collectedProfit = $inhandBalamce->total_profit;
+        $dueProfit =  $willProfit -$collectedProfit;
+        $totalFines = Fines::sum('amount');
+        return view('backend.admin.index',compact('inhandBalamce','totalSaving','dueProfit','totalFines'));	
     }
     public function savingsFilter(Request $request)
     {

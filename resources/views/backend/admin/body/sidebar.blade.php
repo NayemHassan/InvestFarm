@@ -95,6 +95,20 @@
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
                 </div>
+                <div class="menu-title">Assign Sale Amount</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="{{route('assign.amount')}}">
+                        <i class="bx bx-right-arrow-alt"></i>All Assign  List
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
                 <div class="menu-title">Collection Amount</div>
             </a>
             <ul>
