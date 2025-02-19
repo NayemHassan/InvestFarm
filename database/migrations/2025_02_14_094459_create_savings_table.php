@@ -17,6 +17,7 @@ return new class extends Migration
             $table->decimal('amount', 15, 2);
             $table->string('month');
             $table->text('note')->nullable();
+            $table->text('status')->nullable();
             $table->timestamps();
         });
     }

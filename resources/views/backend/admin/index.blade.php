@@ -125,7 +125,14 @@
         </div>
     </div>
 </div>
-
+<style>
+    .text-wrap {
+    /* display: inline-block; */
+    word-wrap: break-word;
+    white-space: normal;
+    max-width: 100px; /* Adjust width as per your table layout */
+}
+</style>
 <script>
     $(document).ready(function() {
         function fetchSavings() {
@@ -137,17 +144,22 @@
                 type: "GET",
                 data: { year: year, month: month },
                 success: function(response) {
-                    console.log(response);
                     let rows = "";
                     response.forEach(function(saving) {
+                        let note = saving.note ?? 'N/A';
+                    // Wrapping note inside a <span> with CSS class for word wrapping
+                    note = `<span class="text-wrap">${note}</span>`;
+
                         rows += `
                             <tr>
                             <td>${saving.member ? saving.member.name : 'N/A'}</td>
                                 <td>${saving.month}</td>
                                 <td>${saving.amount}</td>
-                                <td>${saving.note ?? 'N/A'}</td>
+                                <td class="text-wrap"> ${note}</td>
                                 <td>
-                                    <div class="badge rounded-pill bg-light-success text-success w-100">Completed</div>
+                                   <div class="badge rounded-pill ${saving.status === 'Paid' ? 'bg-light-success text-success' : 'bg-light-danger text-danger'} w-100">
+                                        ${saving.status === 'Paid' ? 'Paid' : 'Unpaid'}
+                                    </div>
                                 </td>
                             </tr>
                         `;

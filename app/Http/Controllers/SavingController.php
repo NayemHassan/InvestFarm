@@ -21,7 +21,7 @@ class SavingController extends Controller
     $request->validate([
         'member_id' => 'required|exists:members,id',
         'month' => 'required',
-        'amount' => 'required|numeric|min:1',
+        'amount' => 'required|numeric|min:0',
         'note' => 'nullable|string|max:500',
     ]);
     $formattedMonth = Carbon::parse($request->month)->format('Y-m-d');
@@ -32,6 +32,11 @@ class SavingController extends Controller
     $savings->month =  $formattedMonth;
     $savings->amount = $request->amount;
     $savings->note = $request->note;
+    if($request->amount > 0){
+        $savings->status = 'Paid';
+    }else{
+        $savings->status = 'Unpaid';
+    }
     $savings->save();
     $transaction = Transactions::create([
         'type' => 'Savings',
