@@ -12,11 +12,15 @@
             </ol>
         </nav>
     </div>
+    @if(Auth::check() && Auth::user()->role === 'admin')
+                                      
     <div class="ms-auto">
         <div class="btn-group">
             <a type="button" href="{{route('assign.amount')}}" class="btn btn-primary" >Add Assign Money </a>
         </div>
     </div>
+
+    @endif
 </div>
 <div class="card">
 					<div class="card-body">
@@ -31,7 +35,9 @@
 										<th>Main Amount</th>
 										<th>Due Amount</th>
 										<th>Note</th>
+                                        @if(Auth::check() && Auth::user()->role === 'admin')
                                         <th>Action</th>
+                                        @endif
 									</tr>
 								</thead>
 								<tbody>
@@ -45,12 +51,15 @@
                                         <td>{{ $asignSaleAmount->old_amount ?? 0 }}</td>
                                         <td>{{ $asignSaleAmount->amount ?? 0 }}</td>
                                         <td>{{ $asignSaleAmount->note  ?? 'N/A'}}</td>
+                                        @if(Auth::check() && Auth::user()->role === 'admin')
+                                       
                                         <td>
                                             <a class="btn btn-info" href="{{ route('assign.amount.edit', $asignSaleAmount->id) }}">Edit</a>
                                           
                                     </td>
 
-                               
+                                 
+                                    @endif
                                     </tr>
                                     @endforeach
 							
@@ -65,7 +74,9 @@
                                         <th>Old Amount</th>
 										<th>Updated Amount</th>
 										<th>Note</th>
+                                        @if(Auth::check() && Auth::user()->role === 'admin')
                                         <th>Action</th>
+                                        @endif
 									</tr>
 								</tfoot>
 							</table>

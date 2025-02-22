@@ -122,6 +122,25 @@
             </div>
         </div>
     </div>
+    <div class="col">
+        <div class="card radius-10 " style="background: linear-gradient(to right,rgb(255, 115, 0),rgb(44, 38, 37));">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                <h5 class="mb-0 text-white">{{ number_format($remeningDue ?? 0, 2) }}TK</h5>
+                    <div class="ms-auto">
+                        <i class='bx bx-wallet-alt fs-3 text-white'></i>
+                    </div>
+                </div>
+                <div class="progress my-3 bg-light-transparent" style="height:3px;">
+                    <div class="progress-bar bg-white" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="d-flex align-items-center text-white">
+                    <p class="mb-0">All Sales Due </p>
+                    <p class="mb-0 ms-auto"><span><i class='bx bx-down-arrow-alt'></i></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
  
 </div><!--end row-->
 

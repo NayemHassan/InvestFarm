@@ -12,13 +12,17 @@
             </ol>
         </nav>
     </div>
+    @if(Auth::check() && Auth::user()->role === 'admin')
     <div class="ms-auto">
-        <div class="btn-group">
-            <a type="button" href="{{route('fines')}}" class="btn btn-primary" >Add Fines </a>
+            <div class="btn-group">
+                <a type="button" href="{{route('fines')}}" class="btn btn-primary" >Add Fines </a>
+            </div>
         </div>
+        @endif
     </div>
-</div>
+  
 <div class="card">
+
 					<div class="card-body">
 						<div class="table-responsive">
 							<table id="example2" class="table table-striped table-bordered">
@@ -28,7 +32,9 @@
 										<th>Date</th>
 										<th>Amount</th>
 										<th>Reason</th>
+                                        @if(Auth::check() && Auth::user()->role === 'admin')
                                         <th>Action</th>
+                                        @endif
 									</tr>
 								</thead>
 								<tbody>
@@ -40,6 +46,7 @@
 
                                         <td>{{ $fine->amount ?? 'N/A' }}</td>
                                         <td>{{ $fine->reason  ?? 'N/A'}}</td>
+                                        @if(Auth::check() && Auth::user()->role === 'admin')
                                         <td>
                                             <a class="btn btn-info" href="{{ route('fines.edit', $fine->id) }}">Edit</a>
                                             <form action="{{ route('fines.delete', $fine->id) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete(this);">
@@ -48,19 +55,14 @@
                                             <button type="submit" class="btn btn-danger">Delete</button>
                                         </form>
                                     </td>
-
+                                    @endif
                                
                                     </tr>
                                     @endforeach
 							
 								</tbody>
 								<tfoot>
-									<tr>
-                                        <th>Name</th>
-										<th>Phone</th>
-										<th>Photo</th>
-										<th>Details</th>
-									</tr>
+									
 								</tfoot>
 							</table>
 						</div>

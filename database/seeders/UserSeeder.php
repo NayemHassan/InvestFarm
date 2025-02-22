@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
                 'name' => 'Nayem Hassan',
                 'email' => 'nayemhassan1111@gmail.com',
                 'phone' => '01911118319',
+                'designation' => 'Web Developer',
                 'role' => 'admin',
                 'status' => 'active', // Don't forget to add status field
                 'password' => bcrypt('Diu123456#'),

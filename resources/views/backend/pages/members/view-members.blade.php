@@ -3,6 +3,7 @@
 
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
     <div class="breadcrumb-title pe-3">Members</div>
+  
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
@@ -12,11 +13,14 @@
             </ol>
         </nav>
     </div>
+   
+    @if(Auth::check() && Auth::user()->role === 'admin')
     <div class="ms-auto">
         <div class="btn-group">
             <a type="button" href="{{route('member')}}" class="btn btn-primary" >Add Members </a>
         </div>
     </div>
+    @endif
 </div>
 <div class="card">
 					<div class="card-body">
@@ -28,7 +32,9 @@
 										<th>Phone</th>
 										<th>Photo</th>
 										<th>Details</th>
+                                        @if(Auth::check() && Auth::user()->role === 'admin')
                                         <th>Action</th>
+                                           @endif
 									</tr>
 								</thead>
 								<tbody>
@@ -42,6 +48,7 @@
                                             No Image
                                         @endif</td>
                                         <td>{{ $member->description }}</td>
+                                        @if(Auth::check() && Auth::user()->role === 'admin')
                                         <td>
                                             <a class="btn btn-info" href="{{ route('member.edit', $member->id) }}">Edit</a>
                                             <form action="{{ route('member.delete', $member->id) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete(this);">
@@ -51,7 +58,7 @@
                                         </form>
                                     </td>
 
-                               
+                                    @endif
                                     </tr>
                                     @endforeach
 							

@@ -12,11 +12,15 @@
             </ol>
         </nav>
     </div>
+    @if(Auth::check() && Auth::user()->role === 'admin')
+                                        
     <div class="ms-auto">
         <div class="btn-group">
             <a type="button" href="{{route('return.amounts')}}" class="btn btn-primary" >Collection Amount Add</a>
         </div>
     </div>
+
+    @endif
 </div>
 <div class="card">
 					<div class="card-body">
@@ -44,7 +48,7 @@
                                         <td>{{ $returnAmount->sales->amount ?? 'N/A'}}</td>
                                         <td>{{ $returnAmount->amount ?? 'N/A' }}</td>
                                         <td>{{ $returnAmount->note ?? 'N/A' }}</td>
-                                        <td>@if(($returnAmount->sales->investments->amount - $returnAmount->amount) > 0 ) 
+                                        <td>@if(($returnAmount->sales->investments->amount - $returnAmount->amount) >= 0 ) 
                                          {{$returnAmount->sales->investments->amount - $returnAmount->amount ?? 0 }} <span class="text-danger">Due</span>
                                             @else
                                           {{ -($returnAmount->sales->investments->amount - $returnAmount->amount) ?? 0}} <span class="text-success ">Profit</span>

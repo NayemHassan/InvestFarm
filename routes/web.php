@@ -27,10 +27,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::get('/admin/logout', [AdminController::class,'destroy'])->name('admin.logout');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::controller(AdminController::class)->group(function () {
         Route::get('/dashboard', 'adminDashboard')->name('dashboard');
         Route::get('/savings/filter', 'savingsFilter')->name('savings.filter');
+        // Route::get('/admin/logout', 'adminLogout')->name('admin.logout');
+        Route::get('/user/profile', 'userProfile')->name('user.profile');
+        Route::post('/user/profile/update', 'userProfileUpdate')->name('admin.update.profile');
     });
 
     Route::controller(MemberController::class)->group(function () {
@@ -40,6 +44,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/member/edit/{id}',  'edit')->name('member.edit');
         Route::put('/member/update/{id}',  'update')->name('member.update');
         Route::delete('/member/delete/{id}', 'delete')->name('member.delete');
+        Route::get('/make/user', 'MakeUser')->name('make.user');
+        Route::get('/view/users', 'viewUsers')->name('view.users');
+        Route::post('/make/user/store', 'userStore')->name('make.user.store');
+        Route::put('/update/user/{id}', 'userUpdate')->name('update.user');
+        Route::get('/user/edit/{id}',  'editUser')->name('user.edit');
+        Route::delete('/user/delete/{id}',  'deleteUser')->name('user.delete');
     });
     Route::controller(SavingController::class)->group(function () {
         Route::get('/savings', 'index')->name('savings');

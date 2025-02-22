@@ -12,11 +12,13 @@
             </ol>
         </nav>
     </div>
+    @if(Auth::check() && Auth::user()->role === 'admin')
     <div class="ms-auto">
         <div class="btn-group">
             <a type="button" href="{{route('investment')}}" class="btn btn-primary" >Add Investment </a>
         </div>
     </div>
+    @endif
 </div>
 <div class="card">
 					<div class="card-body">
@@ -29,7 +31,9 @@
 										<th>Date</th>
 										<th>Image</th>
 										<th>Details</th>
+                                        @if(Auth::check() && Auth::user()->role === 'admin')
                                         <th>Action</th>
+                                        @endif
 									</tr>
 								</thead>
 								<tbody>
@@ -45,6 +49,7 @@
                                             No Image
                                         @endif</td>
                                         <td>{{ $investment->details }}</td>
+                                        @if(Auth::check() && Auth::user()->role === 'admin')
                                         <td>
                                             <a class="btn btn-info" href="{{ route('investment.edit', $investment->id) }}">Edit</a>
                                             <!-- <form action="{{ route('investment.delete', $investment->id) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete(this);">
@@ -53,6 +58,7 @@
                                             <button type="submit" class="btn btn-danger">Delete</button>
                                         </form> -->
                                     </td>
+                                    @endif
                                     </tr>
                                     @endforeach
 							
@@ -64,7 +70,9 @@
 										<th>Date</th>
 										<th>Image</th>
 										<th>Details</th>
+                                        @if(Auth::check() && Auth::user()->role === 'admin')
                                         <th>Action</th>
+                                        @endif
 									</tr>
 								</tfoot>
 							</table>

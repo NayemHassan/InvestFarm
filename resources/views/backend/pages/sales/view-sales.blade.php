@@ -12,11 +12,15 @@
             </ol>
         </nav>
     </div>
+    @if(Auth::check() && Auth::user()->role === 'admin')
+                                   
+                                 
     <div class="ms-auto">
         <div class="btn-group">
             <a type="button" href="{{route('sales')}}" class="btn btn-primary" >Add Sales </a>
         </div>
     </div>
+    @endif
 </div>
 <div class="card">
 					<div class="card-body">
@@ -29,7 +33,9 @@
 										<th>Date</th>
 										<th>Amount</th>
 										<th>Note</th>
+                                        @if(Auth::check() && Auth::user()->role === 'admin')
                                         <th>Action</th>
+                                        @endif
 									</tr>
 								</thead>
 								<tbody>
@@ -41,6 +47,9 @@
 
                                         <td>{{ $sale->amount ?? 'N/A' }}</td>
                                         <td>{{ $sale->details  ?? 'N/A'}}</td>
+                                        @if(Auth::check() && Auth::user()->role === 'admin')
+                                       
+                                       
                                         <td>
                                             <a class="btn btn-info" href="{{ route('sales.edit', $sale->id) }}">Edit</a>
                                             <!-- <form action="{{ route('sales.delete', $sale->id) }}" method="POST" style="display:inline;" onsubmit="return confirmDelete(this);">
@@ -49,7 +58,7 @@
                                             <button type="submit" class="btn btn-danger">Delete</button>
                                         </form> -->
                                     </td>
-
+                                    @endif
                                
                                     </tr>
                                     @endforeach
@@ -62,7 +71,9 @@
 										<th>Date</th>
 										<th>Amount</th>
 										<th>Note</th>
+                                        @if(Auth::check() && Auth::user()->role === 'admin')
                                         <th>Action</th>
+                                        @endif
 									</tr>
 								</tfoot>
 							</table>

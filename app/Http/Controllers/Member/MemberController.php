@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
 use App\Models\Member;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 class MemberController extends Controller
 {
     public function index(){
@@ -110,6 +112,127 @@ public function delete($id)
 
     return redirect()->route('view.member')->with('success', 'Member deleted successfully!');
 }
+    public function MakeUser(){
+        return view('backend.pages.user-make.user-make');
+    }
+    public function userStore(Request $request)
+    {
+        // ভ্যালিডেশন রুলস
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'nullable',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Max 2MB
+            'designation' => 'nullable|string|max:255',
+            'role' => 'required|in:admin,user', // শুধুমাত্র 'admin' বা 'user' হতে পারে
+            'password' => 'required|string|min:8',
+        ]);
+    
+        // ইমেজ আপলোড এবং প্রসেসিং
+        $photoName = null;
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $photoName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/users'), $photoName);
+        }
+    
+        // ডেটাবেসে স্টোর করুন
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->photo = $photoName;
+        $user->designation = $request->designation;
+        $user->role = $request->role;
+        $user->password = Hash::make($request->password);
+        if($request->role){
+            $user->role = $request->role;
+        }else{
+            $user->role = 'user';
+        }
+        $user->save();
+        $notification = array(
+            'message' => 'User ' . $request->name . ' Created successfully.',
+            'alert-type' => 'info'
+        );
+        // সফল মেসেজ সহ রিডাইরেক্ট করুন
+        return redirect()->route('view.users')->with($notification);
+    }
+    public function viewUsers(){
+        $users = User::all();
+        return view('backend.pages.user-make.view-user', compact('users'));
+    }
+    // Edit User
+        public function editUser($id)
+        {
+            $user = User::findOrFail($id);
+            return view('backend.pages.user-make.edit-user', compact('user'));
+        }
+        public function userUpdate(Request $request, $id)
+{
+    $user = User::findOrFail($id);
+
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $user->id,
+        'phone' => 'nullable|string|max:15',
+        'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        'role' => 'required|in:admin,user',
+        'designation' => 'nullable|string|max:255',
+        'password' => 'nullable|string|min:8',
+    ]);
+
+    // Update user data
+    $user->name = $request->name;
+    $user->email = $request->email;
+    $user->phone = $request->phone;
+    $user->role = $request->role;
+    $user->designation = $request->designation;
+
+    // Update password if provided
+    if ($request->password) {
+        $user->password = Hash::make($request->password);
+    }
+    $photoName = $user->photo; // Keep the old photo by default
+
+    if ($request->hasFile('photo')) {
+        // আগের ছবি মুছে ফেলা (যদি থেকে থাকে)
+        if (!empty($user->photo) && file_exists(public_path('uploads/users/' . $user->photo))) {
+            unlink(public_path('uploads/users/' . $user->photo));
+        }
+    
+        // নতুন ছবি আপলোড
+        $image = $request->file('photo');
+        $photoName = time() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('uploads/users'), $photoName);
+    
+        // নতুন ছবির নাম ডাটাবেজে সংরক্ষণ
+        $user->photo = $photoName;
+    }
+    
+    $user->save();
+    $notification = array(
+        'message' => 'User updated successfully',
+        'alert-type' => 'info'
+    );
+    return redirect()->route('view.users')->with($notification);
+}
+public function deleteUser($id)
+{
+
+    $user = User::findOrFail($id);
 
 
+    if ($user->photo && file_exists(public_path('uploads/users/' . $user->photo))) {
+        unlink(public_path('uploads/users/' . $user->photo));
+    }
+
+
+    $user->delete();
+    $notification = array(
+        'message' => 'User Deleted  successfully.',
+        'alert-type' => 'info'
+    );
+    return redirect()->route('view.users')->with($notification);
+}
 }

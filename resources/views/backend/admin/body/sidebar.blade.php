@@ -23,7 +23,8 @@
 
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="bx bx-category"></i>
+                <div class="parent-icon"><i class="bx bx-group"></i> <!-- Group Icon -->
+
                 </div>
                 <div class="menu-title">Member</div>
             </a>
@@ -37,7 +38,8 @@
         </li>
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="bx bx-category"></i>
+                <div class="parent-icon"><i class="bx bx-save"></i> <!-- Save Icon -->
+
                 </div>
                 <div class="menu-title">Savings Amount</div>
             </a>
@@ -51,7 +53,10 @@
         </li>
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="bx bx-category"></i>
+                <div class="parent-icon"><i class="bx bx-money"></i> <!-- Money Icon -->
+                
+
+
                 </div>
                 <div class="menu-title">Fines Amount</div>
             </a>
@@ -65,7 +70,8 @@
         </li>
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="bx bx-category"></i>
+                <div class="parent-icon"><i class="bx bx-bar-chart"></i> <!-- Bar Chart Icon -->
+
                 </div>
                 <div class="menu-title">Investment</div>
             </a>
@@ -79,7 +85,9 @@
         </li>
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="bx bx-category"></i>
+                <div class="parent-icon"><i class="bx bx-line-chart"></i> <!-- Line Chart Icon -->
+
+
                 </div>
                 <div class="menu-title">Sales</div>
             </a>
@@ -93,7 +101,8 @@
         </li>
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="bx bx-category"></i>
+                <div class="parent-icon"><i class="bx bx-user-check"></i> <!-- User Check Icon -->
+
                 </div>
                 <div class="menu-title">Assign Sale Amount</div>
             </a>
@@ -107,7 +116,8 @@
         </li>
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="bx bx-category"></i>
+                <div class="parent-icon"><i class="bx bx-coin-stack"></i> <!-- Coin Stack Icon -->
+
                 </div>
                 <div class="menu-title">Collection Amount</div>
             </a>
@@ -121,7 +131,8 @@
         </li>
         <li>
             <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="bx bx-category"></i>
+                <div class="parent-icon"><i class="bx bx-file"></i> <!-- Report or File Icon -->
+
                 </div>
                 <div class="menu-title">Reports</div>
             </a>
@@ -133,7 +144,20 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-label">Next Components</li>
+        <li class="menu-label ms-5">World Bank</li>
+        @if(Auth::check() && Auth::user()->role === 'admin')
+                                        
+        <li>
+            <a href="{{route('make.user')}}" >
+                <div class="parent-icon"><i class="bx bx-group"></i> <!-- Report or File Icon -->
+
+                </div>
+                <div class="menu-title">Make User</div>
+            </a>
+            
+        </li>
+ 
+        @endif
         <!-- <li>
                     <a href="widgets.html">
                         <div class="parent-icon"><i class='bx bx-cookie'></i>

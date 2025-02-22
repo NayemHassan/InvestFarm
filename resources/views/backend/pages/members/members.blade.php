@@ -3,6 +3,8 @@
 
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
     <div class="breadcrumb-title pe-3">Members</div>
+    @if(Auth::check() && Auth::user()->role === 'admin')
+
     <div class="ps-3">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 p-0">
@@ -12,6 +14,8 @@
             </ol>
         </nav>
     </div>
+
+    @endif
     <div class="ms-auto">
         <div class="btn-group">
             <a type="button" href="{{route('view.member')}}" class="btn btn-primary" >View Members </a>
