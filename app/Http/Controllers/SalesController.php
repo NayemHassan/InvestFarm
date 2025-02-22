@@ -9,7 +9,8 @@ use Carbon\Carbon;
 class SalesController extends Controller
 {
     public function index(){
-        $investments =  Investments::all();
+        $existingInvestmentIds = Sales::pluck('investment_id')->toArray();
+        $investments = Investments::whereNotIn('id', $existingInvestmentIds)->get();
         return view('backend.pages.sales.sales',compact('investments'));
     }
     public function store(Request $request)

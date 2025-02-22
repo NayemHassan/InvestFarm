@@ -58,9 +58,10 @@
 <script>
 		$('.datepicker').pickadate({
 			selectMonths: true,
-	        selectYears: true
+	        selectYears: true,
 		}),
 		$('.timepicker').pickatime()
+   
 	</script>
 <!-- Toastr Notification -->
 <script>

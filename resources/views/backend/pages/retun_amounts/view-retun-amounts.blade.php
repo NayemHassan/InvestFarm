@@ -30,6 +30,7 @@
                                         <th>Total Investment</th>
                                         <th>Total Sales</th>
 										<th>Collected Amount</th>                      
+										<th>Note</th>                      
 										<th><span class="text-danger">Due</span>/ <span class="text-success">Profit Amount</span></th>                      
 									</tr>
 								</thead>
@@ -42,6 +43,7 @@
                                         <td>{{ $returnAmount->sales->investments->amount ?? 'N/A'}}</td>
                                         <td>{{ $returnAmount->sales->amount ?? 'N/A'}}</td>
                                         <td>{{ $returnAmount->amount ?? 'N/A' }}</td>
+                                        <td>{{ $returnAmount->note ?? 'N/A' }}</td>
                                         <td>@if(($returnAmount->sales->investments->amount - $returnAmount->amount) > 0 ) 
                                          {{$returnAmount->sales->investments->amount - $returnAmount->amount ?? 0 }} <span class="text-danger">Due</span>
                                             @else
@@ -59,7 +61,8 @@
 										<th>Latest Update Date</th>
                                         <th>Total Investment</th>
                                         <th>Total Sales</th>
-										<th>Collected Amount</th>                      
+										<th>Collected Amount</th>     
+                                        <th>Note</th>                      
 										<th><span class="text-danger">Due</span>/ <span class="text-success">Profit Amount</span></th>                 
 									</tr>
 								</tfoot>

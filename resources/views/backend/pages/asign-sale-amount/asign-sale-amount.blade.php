@@ -1,5 +1,6 @@
 @extends('backend.admin.main_dashboard')
 @section('content')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
     <div class="breadcrumb-title pe-3">Assign Sales</div>
@@ -39,10 +40,10 @@
                     <form class="row g-3" action="{{ route('assign.amount.store') }}" method="post">
                     @csrf
                     <div class="row">
-                        <div class="col-md-6">
-                            <label for="inputFirstName" class="form-label">Select Sale</label>
-                            <select name="sale_id" class="form-control">
-                                <option value="">Select a Sales</option>
+                    <div class="col-md-6"> 
+                            <label for="inputFirstName" class="form-label">Select Sale</label><span class="text-danger">*</span> <strong>Amount: </strong> <span id="amount_display" style="font-size: 18px; font-weight: bold; color: #28a745;">0</span> TK
+                            <select name="sale_id" class="form-control" id="sale_id">
+                                <option value="">Select a Sale</option>
                                 @foreach ($sales as $sale)
                                     <option value="{{ $sale->id }}">
                                         {{ $sale->investments->type }}
@@ -54,24 +55,18 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label for="inputFirstName" class="form-label">Select Members</label>
-                            <select name="members_id" class="form-control">
-                                <option value="">Select a Members</option>
-                                @foreach ($members as $member)
-                                    <option value="{{ $member->id }}" >
-                                        {{ $member->name }}
-                                    </option>
-                                @endforeach
-                                <option value="others">Others Collection</option>
-                                <option value="nagad">Nagad Collection</option>
-                            </select>
-                            @error('members_id')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
+                        <label for="member_id" class="form-label">Select Members <span class="text-danger">*</span></label>
+                        <select name="member_id" class="form-control" id="member_id">
+                            <option value="">Select a Member</option>
+                     
+                        </select>
+                        @error('member_id')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
 
                         <div class="col-md-6">
-                            <label for="inputLastName" class="form-label">Date</label>
+                            <label for="inputLastName" class="form-label">Date <span class="text-danger">*</span> </label>
                             <input type="text" name="date" class="form-control datepicker" value="{{ old('date') }}" />
                             @error('date')
                                 <small class="text-danger">{{ $message }}</small>
@@ -79,7 +74,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="inputLastName" class="form-label">Amount</label>
+                            <label for="inputLastName" class="form-label">Amount <span class="text-danger">*</span> </label>
                             <input type="number" class="form-control" name="amount" value="{{ old('amount') }}">
                             @error('amount')
                                 <small class="text-danger">{{ $message }}</small>
@@ -107,6 +102,63 @@
     </div>
 </div>
 
+<script>
+$(document).ready(function() {
+    $('#sale_id').on('change', function() {
+        let sale_id = $(this).val();
+        console.log('Selected Sale ID:', sale_id);  // Debugging statement to ensure sale_id is being passed
+        
+        if (sale_id) {
+            $.ajax({
+                url: '/get-sale-amount/' + sale_id,
+                type: 'GET',
+                success: function(response) {
+                    console.log('Server Response:', response);  // Debugging server response
+                    $('#amount_display').text(response.amount);  // Display the fetched amount
+                },
+                error: function() {
+                    $('#amount_display').text('0');  // In case of an error, show 0
+                }
+            });
+        } else {
+            $('#amount_display').text('0');  // If no sale is selected, show 0
+        }
+    });
+  
+})
+$('#sale_id').on('change', function() {
+    var saleId = $(this).val();
+    if (saleId) {
+        $.ajax({
+            url: '/get-available-members/' + saleId,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                $('#member_id').empty().append('<option value="">Select a Member</option>');
+                
+                // availableMembers array থেকে real member options যোগ করা
+                $.each(response.availableMembers, function(index, member) {
+                    $('#member_id').append('<option value="' + member.id + '">' + member.name + '</option>');
+                });
+                
+                // যদি others option এখনও অ্যাসাইন না করা থাকে, তাহলে যোগ করা
+                if(response.othersAvailable){
+                    $('#member_id').append('<option value="others">Others Collection</option>');
+                }
+                
+                // যদি nagad option এখনও অ্যাসাইন না করা থাকে, তাহলে যোগ করা
+                if(response.nagadAvailable){
+                    $('#member_id').append('<option value="nagad">Nagad Collection</option>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("Error:", error);
+            }
+        });
+    } else {
+        $('#member_id').empty().append('<option value="">Select a Member</option>');
+    }
+});
 
-
+</script>
 @endsection

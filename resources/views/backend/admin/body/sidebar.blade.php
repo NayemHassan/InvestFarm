@@ -99,7 +99,7 @@
             </a>
             <ul>
                 <li>
-                    <a href="{{route('assign.amount')}}">
+                    <a href="{{route('assign.amount.view')}}">
                         <i class="bx bx-right-arrow-alt"></i>All Assign  List
                     </a>
                 </li>
@@ -115,6 +115,20 @@
                 <li>
                     <a href="{{route('return.amounts.view')}}">
                         <i class="bx bx-right-arrow-alt"></i>Collection Amount List
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Reports</div>
+            </a>
+            <ul>
+                <li>
+                    <a href="{{route('collection.due.report')}}">
+                        <i class="bx bx-right-arrow-alt"></i>Collection Due Report
                     </a>
                 </li>
             </ul>

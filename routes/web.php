@@ -11,6 +11,7 @@ use App\Http\Controllers\InvestmentsController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ReturnAmountsController;
 use App\Http\Controllers\AsignSaleAmountController;
+use App\Http\Controllers\ReportController;
 
 
 Route::get('/', function () {
@@ -79,17 +80,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/return/amounts/edit/{id}',  'edit')->name('return.amounts.edit');
         Route::put('/return/amounts/update/{id}',  'update')->name('return.amounts.update');
         Route::delete('/return/amounts/delete/{id}', 'delete')->name('return.amounts.delete');
+        Route::get('/get-members/{sale_id}',  'getMembers');
+        Route::get('/get-remaining-amount/{sale_id}/{member_id}',  'getMembersAssignAmount');
+
     });
     Route::controller(AsignSaleAmountController::class)->group(function () {
         Route::get('/Assign/Sale/Amount', 'index')->name('assign.amount');
         Route::post('/Assign/Sale/Amount/store', 'store')->name('assign.amount.store');
         Route::get('/Assign/Sale/Amount/view', 'view')->name('assign.amount.view');
-        Route::get('/Assign/Sale/Amount/edit/{id}',  'edit')->name('return.amounts.edit');
+        Route::get('/Assign/Sale/Amount/edit/{id}',  'edit')->name('assign.amount.edit');
         Route::put('/Assign/Sale/Amount/{id}',  'update')->name('assign.amount.update');
         Route::delete('/Assign/Sale/Amount//delete/{id}', 'delete')->name('assign.amount.delete');
+        Route::get('/get-sale-amount/{sale_id}',  'getSaleAmount');
+        Route::get('/get-available-members/{sale_id}', 'getAvailableMembers');
+
+    });
+    Route::controller(ReportController::class)->group(function () {
+        Route::get('/individual/collection/due/report', 'viewCollectionDueReport')->name('collection.due.report');
+        Route::get('/filter-sale-report', 'filterSaleReport')->name('filterSaleReport');
     });
 });
-
-
 
 require __DIR__.'/auth.php';

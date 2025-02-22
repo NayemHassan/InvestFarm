@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('asign_sale_amounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('member_id')->constrained('members')->onDelete('cascade');
+            $table->string('member_id');
             $table->foreignId('sale_id')->constrained('sales')->onDelete('cascade');
             $table->decimal('amount', 15, 2)->default(0);
+            $table->decimal('old_amount', 15, 2)->default(0);
+            $table->date('date');
             $table->text('note')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
