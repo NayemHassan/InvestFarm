@@ -1,6 +1,6 @@
 @extends('backend.admin.main_dashboard')
 @section('content')
-<div class="page-content"> 
+
 				<!--breadcrumb-->
 				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
 			
@@ -18,8 +18,7 @@
 					</div>
 				</div>
 				<!--end breadcrumb-->
-				<div class="container">
-					<div class="main-body">
+			
 						<div class="row">
 						 
 <div class="col-lg-12">
@@ -92,15 +91,11 @@
 
 
 	</div>
-	 
+	
+        </div>
+    </div>
 
-
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+		
 
 
 

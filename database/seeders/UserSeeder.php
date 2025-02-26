@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
             ],  [
                 'name' => 'Shadhin',
                 'email' => 'shadhin@gmail.com',
+                'designation' => 'Student',
                 'phone' => '01811',
                 'role' => 'user',
                 'status' => 'active', // Don't forget to add status field

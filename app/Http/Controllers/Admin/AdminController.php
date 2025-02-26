@@ -25,9 +25,9 @@ class AdminController extends Controller
         $totalSaving = Savings::sum('amount');
         $totalInvest = Investments::sum('amount');
         $totalSale = Sales::sum('amount');
-        $willProfit =   $totalSale - $totalInvest;
-        $collectedProfit = $inhandBalamce->total_profit;
-        $dueProfit =  $willProfit - $collectedProfit;
+        $willProfit =   $totalSale - $totalInvest ?? 0;
+        $collectedProfit = $inhandBalamce->total_profit ?? 0;
+        $dueProfit =  $willProfit - $collectedProfit ?? 0;
         $totalFines = Fines::sum('amount');
         $totalCollect = ReturnAmount::sum('amount');
         $remeningDue = $totalSale - $totalCollect ?? 0;
