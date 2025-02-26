@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>World Bank</title>
+    <link rel="icon" href="{{asset('backend')}}/assets/images/favicon-32x32.png" type="image/png" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Default styles for all devices */

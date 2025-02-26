@@ -7,7 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!--favicon-->
+    <!-- SEO Meta Tags -->
+    <title>{{ $pageTitle ?? 'World Bank - Your Financial Partner' }}</title>
+    <meta name="description" content="{{ $metaDescription ?? 'Manage your savings and investments securely.' }}">
+    <meta name="keywords" content="bank, savings, investment, financial management">
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url()->current() }}" />
+
+    <!-- Open Graph (OG) for Social Media -->
+    <meta property="og:title" content="{{ $pageTitle ?? 'World Bank' }}">
+    <meta property="og:description" content="{{ $metaDescription ?? 'Your trusted investment platform.' }}">
+    <meta property="og:image" content="{{ asset('backend/assets/images/seo-image.jpg') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $pageTitle ?? 'World Bank' }}">
+    <meta name="twitter:description" content="{{ $metaDescription ?? 'Secure and reliable financial solutions.' }}">
+    <meta name="twitter:image" content="{{ asset('backend/assets/images/seo-image.jpg') }}">
   <!-- Favicon -->
 <link rel="icon" href="{{asset('backend')}}/assets/images/favicon-32x32.png" type="image/png" />
 

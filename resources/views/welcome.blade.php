@@ -5,7 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WorldBank - Home Banking</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="{{asset('backend')}}/assets/images/favicon-32x32.png" type="image/png" />
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- SEO Meta Tags -->
+    <title>{{ $pageTitle ?? 'World Bank - Your Financial Partner' }}</title>
+    <meta name="description" content="{{ $metaDescription ?? 'Manage your savings and investments securely.' }}">
+    <meta name="keywords" content="bank, savings, investment, financial management">
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url()->current() }}" />
+
+    <!-- Open Graph (OG) for Social Media -->
+    <meta property="og:title" content="{{ $pageTitle ?? 'World Bank' }}">
+    <meta property="og:description" content="{{ $metaDescription ?? 'Your trusted investment platform.' }}">
+    <meta property="og:image" content="{{ asset('backend/assets/images/seo-image.jpg') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $pageTitle ?? 'World Bank' }}">
+    <meta name="twitter:description" content="{{ $metaDescription ?? 'Secure and reliable financial solutions.' }}">
+    <meta name="twitter:image" content="{{ asset('backend/assets/images/seo-image.jpg') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         .bank-pattern {
             background-image: url('data:image/svg+xml,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="rgba(255,255,255,0.1)" d="M50 18.35L12.5 37.65v4.7h75v-4.7L50 18.35zm-1.25 12.5v6.25h2.5V30.85h-2.5zm-18.75 6.25h6.25v25h-6.25v-25zm12.5 0h6.25v25h-6.25v-25zm12.5 0h6.25v25h-6.25v-25zm12.5 0h6.25v25h-6.25v-25zM12.5 68.85v-18.7h75v18.7H12.5z"/></svg>');
