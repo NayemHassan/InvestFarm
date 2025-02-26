@@ -35,6 +35,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Route::get('/admin/logout', 'adminLogout')->name('admin.logout');
         Route::get('/user/profile', 'userProfile')->name('user.profile');
         Route::post('/user/profile/update', 'userProfileUpdate')->name('admin.update.profile');
+        Route::get('/user/change/password', 'userChangePassword')->name('user.change.password');
+        Route::post('/user/update/password', 'userUpdatePassword')->name('user.update.password');
     });
 
     Route::controller(MemberController::class)->group(function () {

@@ -3,7 +3,7 @@
 
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
-    <div class="col">
+    <div class=" col-6 col-md-3">
         <div class="card radius-10 bg-gradient-ohhappiness ">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col-6 col-md-3">
         <div class="card radius-10 bg-gradient-deepblue">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -43,7 +43,7 @@
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col-6 col-md-3">
         <div class="card radius-10 bg-gradient-orange">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -63,7 +63,7 @@
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col-6 col-md-3">
         <div class="card radius-10" style="background: linear-gradient(to right, #00008B, #1E3A5F);">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -84,7 +84,7 @@
         </div>
     </div>
   
-    <div class="col">
+    <div class="col-6 col-md-3">
         <div class="card radius-10 bg-gradient-ibiza">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -103,7 +103,7 @@
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col-6 col-md-3">
         <div class="card radius-10 " style="background: linear-gradient(to right, #FF0080, #8A2BE2);">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -122,7 +122,7 @@
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col-12 col-md-3 justify-content-center ">
         <div class="card radius-10 " style="background: linear-gradient(to right,rgb(255, 115, 0),rgb(44, 38, 37));">
             <div class="card-body">
                 <div class="d-flex align-items-center">
@@ -144,9 +144,27 @@
  
 </div><!--end row-->
 
+<div class="row">
 
+@foreach($savings as $saving)
+    <div class="{{ $loop->last ? 'col-12 col-md-3' : 'col-6 col-md-3' }}">
+    <div class="card radius-10">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <img src="{{ asset($saving->member->photo ?  $saving->member->photo : 'headphones.png') }}" class="rounded-circle p-1 border" width="70" height="70" alt="...">
+            <div class="flex-grow-1 ms-3">
+                <h5 class="mt-0">{{ $saving->member->name ?? 'N/A' }}</h5>
+                <p class="mb-0">{{ $saving->total_savings }}</p>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    @endforeach
+ 
+</div>
 
-<div class="card radius-10">
+<div class="card radius-10 ">
     <div class="card-body">
         <div class="d-flex align-items-center">
             <div>
@@ -195,6 +213,12 @@
     white-space: normal;
     max-width: 100px; /* Adjust width as per your table layout */
 }
+@media (max-width: 576px) {  /* Small devices (sm) */
+    .row {
+        --bs-gutter-x: 0.5rem; /* গ্যাপ কমানো হয়েছে */
+    }
+}
+
 </style>
 <script>
     $(document).ready(function() {

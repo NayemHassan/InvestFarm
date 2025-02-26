@@ -91,6 +91,9 @@
                     <li><a class="dropdown-item" href="{{route('return.amounts.view')}}"><i class='bx bx-dollar-circle'></i><span>Earnings</span></a>
                     </li>
                     
+                    <li><a class="dropdown-item" href="{{route('user.change.password')}}"><i class="bx bx-user"></i><span>Password Change</span></a>
+                    </li>
+                    
                     <li>
                         <div class="dropdown-divider mb-0"></div>
                     </li>

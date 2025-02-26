@@ -10,11 +10,14 @@ use App\Models\Sales;
 use App\Models\Fines;
 use App\Models\Investments;
 use App\Models\ReturnAmount;
+use App\Models\Member;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
     public function adminDashboard(){
@@ -28,7 +31,14 @@ class AdminController extends Controller
         $totalFines = Fines::sum('amount');
         $totalCollect = ReturnAmount::sum('amount');
         $remeningDue = $totalSale - $totalCollect ?? 0;
-        return view('backend.admin.index',compact('inhandBalamce','totalSaving','dueProfit','totalFines','remeningDue'));	
+        ///////////Member sum ///////////
+        $savings = Savings::with('member')
+        ->select('member_id', DB::raw('SUM(amount) as total_savings'))
+        ->groupBy('member_id')
+        ->get();
+    
+    
+        return view('backend.admin.index',compact('inhandBalamce','totalSaving','dueProfit','totalFines','remeningDue','savings'));	
     }
     public function savingsFilter(Request $request)
     {
@@ -105,9 +115,32 @@ class AdminController extends Controller
         
         $data->save();
         $notification = array(
-            'message' =>'Admin Profile Updated Sccessflly ',
+            'message' =>'Profile Updated Sccessflly ',
             'alert-type'=> 'info'
          );
         return redirect()->back()->with($notification);
     }
+    public function userChangePassword(){
+        return view('backend.pages.user-profile.change-password');
+    }
+    public function userUpdatePassword(Request $request){
+        // Validation 
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed', 
+        ]);
+
+        // Match The Old Password
+        if (!Hash::check($request->old_password, auth::user()->password)) {
+            return back()->with("error", "Old Password Doesn't Match!!");
+        }
+
+        // Update The new password 
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+
+        ]);
+        return back()->with("status", " Password Changed Successfully");
+
+    } // End Mehtod 
 }
